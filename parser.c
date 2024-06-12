@@ -6,7 +6,7 @@
 /*   By: alirola- <alirola-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 21:42:13 by alirola-          #+#    #+#             */
-/*   Updated: 2024/06/11 15:39:24 by alirola-         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:56:15 by alirola-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int save_texture(t_data *data, char *text)
 		{
 			if (save_texture2(d, split, &tmp))
 				return(/*freedptr(&split)*/, free(tmp), free(text), 1);
-			if ((ft_strncmp(split[i], "F", 2) || ft_strncmp(split[i], "C", 2)) && color_check(d, tmp, split[i]))
+			if ((ft_strncmp(split[i], "F", 2) || ft_strncmp(split[i], "C", 2)) && /*color_check(d, tmp, split[i]*/))
 				return(/*freedptr(&split)*/, free(tmp), free(text), 1);
 			free(tmp);
 		}
