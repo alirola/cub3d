@@ -4,6 +4,7 @@ FLAGS = -Wall -Werror -Wextra
 
 FILES = main.c\
 		parser.c\
+		free.c\
 
 OBJS = $(FILES:.c=.o)
 
