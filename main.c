@@ -6,7 +6,7 @@
 /*   By: alirola- <alirola-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:15:11 by alirola-          #+#    #+#             */
-/*   Updated: 2024/06/04 21:47:27 by alirola-         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:18:47 by alirola-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int main(int argc, char **argv)
 		return(printf("Error: invalid map extension"), 1);
 	//inicializar struct
 	if (parser(&data, argv[1]) == 1)
-		//liberar cositas
+		return(0);
 }

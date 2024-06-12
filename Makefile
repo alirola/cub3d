@@ -3,6 +3,7 @@ NAME = cub3d
 FLAGS = -Wall -Werror -Wextra
 
 FILES = main.c\
+		parser.c\
 
 OBJS = $(FILES:.c=.o)
 
@@ -10,11 +11,11 @@ LIBFT_PATH = ./libft
 
 MLX_PATH = ./MLX42
 
-LIBFT = $(LIBFT_PATH)/libft.a
+LIBFT = libft/libft.a
 
 MLX = $(MLX_PATH)/libmlx42.a
 
-LIB_SYS = -lm Iinclude -lglfw -L "/Users/alirola-/.brew/opt/glfw/lib/"
+LIB_SYS = -lm -Iinclude -lglfw -L "/Users/alirola-/.brew/opt/glfw/lib/"
 
 all : $(NAME) $(LIBFT) $(MLX)
 

@@ -6,7 +6,7 @@
 /*   By: alirola- <alirola-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 21:21:49 by alirola-          #+#    #+#             */
-/*   Updated: 2024/06/04 21:49:52 by alirola-         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:17:26 by alirola-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,7 @@ typedef struct s_data
 {
 	int fd;
 	char *line;
-}
+	int	texture_count;
+}	t_data;
+
+int parser(t_data *data, char *map);
