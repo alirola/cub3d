@@ -6,7 +6,7 @@
 /*   By: alirola- <alirola-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 21:42:13 by alirola-          #+#    #+#             */
-/*   Updated: 2024/06/14 18:26:51 by alirola-         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:36:06 by alirola-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	texture_check(t_data *d, char **text)
 	if (d->texture_count != 6)
 		return (free(*text), free(d->line),
 			printf("Error: Missing textures\n"), 1);
+	if (save_map(d))
+		return(free(*text), 1);
 	return (close(d->fd), 0);
 }
 
@@ -149,6 +151,9 @@ int	parser(t_data *d, char *map)
 		return (1);
 	if (!d->no || !d->so || !d->we || !d->ea)
 		return (free(d->line), printf("Error: Missing textures\n"), 1);
-	printf("no: %s\nso: %s\nwe: %s\nea: %s\nc: %s\nf: %s\n", d->no, d->so, d->we, d->ea, d->ceiling[2], d->floor[2]);
+	printf("no: %s\nso: %s\nwe: %s\nea: %s\nc: %s\nf: %s\n", d->no, d->so, d->we, d->ea, d->ceiling, d->floor);
+	if (!d->ceiling || !d->ceiling[0] || !d->ceiling[1] || !d->ceiling[2]
+		|| !d->floor || !d->floor[0] || !d->floor[1] || !d->floor[2])
+		return(free(d->line), printf("Error: Wrong rgb color"), 1);
 	return (0);
 }
