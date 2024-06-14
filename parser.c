@@ -6,7 +6,7 @@
 /*   By: alirola- <alirola-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 21:42:13 by alirola-          #+#    #+#             */
-/*   Updated: 2024/06/12 17:59:03 by alirola-         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:26:51 by alirola-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	texture_check(t_data *d, char **text)
 			*text = gnl_ft_strjoin(*text, d->line);
 			d->texture_count++;
 		}
-		else if ((ft_strncmp(d->line, "F", 1) || ft_strncmp(d->line, "C", 1))
+		else if ((ft_strncmp(d->line, "F ", 2) || ft_strncmp(d->line, "C ", 2))
 			&& (d->line[1] == ' ' || (d->line[1] >= 9 && d->line[1] <= 13)))
 		{
 			*text = gnl_ft_strjoin(*text, d->line);
@@ -38,31 +38,6 @@ int	texture_check(t_data *d, char **text)
 	return (close(d->fd), 0);
 }
 
-int	save_texture2(t_data *d, char **split, char **tmp)
-{
-	int	j;
-	int	i;
-
-	i = 0;
-	j = 2;
-	printf("hola");
-	while (split[i][j] == ' ' || (split[i][j] >= 9 && split[i][j] <= 13))
-		j++;
-	*tmp = ft_strdup(split[i] + j);
-	if (!*tmp)
-		return (1);
-	if (ft_strncmp(split[i], "NO ", 3))
-		d->no = *tmp;
-	if (ft_strncmp(split[i], "SO ", 3))
-		d->so = *tmp;
-	if (ft_strncmp(split[i], "WE ", 3))
-		d->we = *tmp;
-	if (ft_strncmp(split[i], "EA ", 3))
-		d->ea = *tmp;
-	printf("no: %s\nso: %s\nwe: %s\nea: %s",d->no, d->so, d->we, d->ea);
-	return (0);
-}
-
 int	color_check(t_data *d, char *tmp, char *split, int coma_counter)
 {
 	int		i;
@@ -71,24 +46,60 @@ int	color_check(t_data *d, char *tmp, char *split, int coma_counter)
 
 	i = 0;
 	j = 0;
-	while (tmp[++i])
+	coma_counter = 0;
+	while ( tmp && tmp[++i])
 		if (tmp[i] == ',')
 			coma_counter++;
 	color = ft_split(tmp, ',');
-	color = 0;
-	while (color[i])
+	i = -1;
+	while (color && color[++i])
 	{
-		while (color[++i][j])
+		j = -1;
+		while (color[i][++j])
 			if (!ft_isdigit(color[i][j]))
 				return (free_tptr(&color), printf("Error: wrong rgb color"), 1);
 		if (ft_atoi(color[i]) > 255 || ft_atoi(color[i]) < 0
 			|| coma_counter != 2)
 			return (free_tptr(&color), printf("Error: wrong rgb color"), 1);
 	}
-	if (ft_strncmp(split, "C ", 2))
+	if (ft_strncmp(split, "C ", 2) == 0)
 		d->ceiling = color;
-	else if (!ft_strncmp(split, "F ", 2))
+	else if (ft_strncmp(split, "F ", 2) == 0)
 		d->floor = color;
+	return (0);
+}
+
+int	save_texture2(t_data *d, char **split, char **tmp)
+{
+	int	j;
+	int	i;
+
+	i = 0;
+	j = 2;
+	while (split && split[i])
+	{
+		while (split[i][j] == ' ' || (split[i][j] >= 9 && split[i][j] <= 13))
+			j++;
+		if (d->no && d->so && d->we && d->ea)
+			*tmp = ft_strdup(split[i] + j - 1);
+		else	
+			*tmp = ft_strdup(split[i] + j);
+		if (!*tmp)
+			return (1);
+		if (!ft_strncmp(split[i], "NO ", 3))
+			d->no = *tmp;
+		else if (!ft_strncmp(split[i], "SO ", 3))
+			d->so = *tmp;
+		else if (!ft_strncmp(split[i], "WE ", 3))
+			d->we = *tmp;
+		else if (!ft_strncmp(split[i], "EA ", 3))
+			d->ea = *tmp;
+		else if (!ft_strncmp(split[i], "C ", 2))
+			color_check(d, *tmp, split[i], 0);
+		else if (!ft_strncmp(split[i], "F ", 2))
+			color_check(d, *tmp, split[i], 0);
+		i++;
+	}
 	return (0);
 }
 
@@ -107,13 +118,14 @@ int	save_texture(t_data *data, char *text, char *tmp)
 		while (split[++j])
 			if (ft_strncmp(split[i], split[j], 2) == 0)
 				return (free_tptr(&split), free(text), free(data->line), printf("Error: duplicated textures"), 1);
+		j = 0;
 		if (split[i][j])
 		{
 			if (save_texture2(data, split, &tmp))
 				return (free_tptr(&split), free(tmp), free(text), 1);
-			if ((ft_strncmp(split[i], "F", 2) || ft_strncmp(split[i], "C", 2))
-				&& color_check(data, tmp, split[i], 0))
-				return (free_tptr(&split), free(tmp), free(text), 1);
+			// if ((ft_strncmp(split[i], "F", 2) || ft_strncmp(split[i], "C", 2))
+			// 	&& color_check(data, tmp, split[i], 0))
+			// 	return (free_tptr(&split), free(tmp), free(text), 1);
 			free(tmp);
 		}
 	}
@@ -137,5 +149,6 @@ int	parser(t_data *d, char *map)
 		return (1);
 	if (!d->no || !d->so || !d->we || !d->ea)
 		return (free(d->line), printf("Error: Missing textures\n"), 1);
+	printf("no: %s\nso: %s\nwe: %s\nea: %s\nc: %s\nf: %s\n", d->no, d->so, d->we, d->ea, d->ceiling[2], d->floor[2]);
 	return (0);
 }

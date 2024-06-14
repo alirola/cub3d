@@ -6,7 +6,7 @@
 /*   By: alirola- <alirola-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:15:11 by alirola-          #+#    #+#             */
-/*   Updated: 2024/06/12 17:40:08 by alirola-         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:44:39 by alirola-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int	main(int argc, char **argv)
 	init_struct(&data);
 	if (parser(&data, argv[1]) == 1)
 		return (1);
-	return(0);
+	return (0);
 }
