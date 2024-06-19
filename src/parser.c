@@ -6,7 +6,7 @@
 /*   By: alirola- <alirola-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 21:42:13 by alirola-          #+#    #+#             */
-/*   Updated: 2024/06/19 17:23:54 by alirola-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:39:29 by alirola-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	texture_check(t_data *d, char **text)
 {
 	while (d->line && d->line[0] != '1' && d->line[0] != ' ')
 	{
-		if ((ft_strncmp(d->line, "NO", 2) == 0 || ft_strncmp(d->line, "SO", 2) == 0
-				|| ft_strncmp(d->line, "WE", 2) == 0 || ft_strncmp(d->line, "EA", 2) == 0)
+		if ((ft_strncmp(d->line, "NO", 2) || ft_strncmp(d->line, "SO", 2)
+				|| ft_strncmp(d->line, "WE", 2) || ft_strncmp(d->line, "EA", 2))
 			&& (d->line[2] == ' ' || (d->line[2] >= 9 && d->line[2] <= 13)))
 		{
 			*text = gnl_ft_strjoin(*text, d->line);
