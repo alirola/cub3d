@@ -1,10 +1,16 @@
 NAME = cub3d
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -fPIE
 
-FILES = main.c\
-		parser.c\
-		free.c\
+FILES = src/main.c\
+		src/parser.c\
+		src/free.c\
+		src/map_check.c\
+		src/game.c\
+		src/keypress.c\
+		src/raycasting.c\
+		src/rendering.c\
+		src/start_map.c\
 
 OBJS = $(FILES:.c=.o)
 
@@ -16,7 +22,7 @@ LIBFT = libft/libft.a
 
 MLX = $(MLX_PATH)/libmlx42.a
 
-LIB_SYS = -lm -Iinclude -lglfw -L "/Users/alirola-/.brew/opt/glfw/lib/"
+LIB_SYS  = -ldl -DEBUG=1 -Iinclude -lm -lglfw -L"usr/lib/x86_64-linux-gnu/"
 
 all : $(NAME) $(LIBFT) $(MLX)
 

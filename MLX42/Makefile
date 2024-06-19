@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ilopez-r <ilopez-r@student.42malaga.com    +#+  +:+       +#+         #
+#    By: alirola- <alirola-@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/26 21:32:49 by W2Wizard          #+#    #+#              #
-#    Updated: 2024/01/23 11:22:26 by ilopez-r         ###   ########.fr        #
+#    Updated: 2024/06/19 13:42:48 by alirola-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INCLUDE_DIR	:= include
 
 override HEADERS += -I $(INCLUDE_DIR)
 
-CFLAGS :=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Wno-sign-compare \
+CFLAGS :=	-fPIE -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Wno-sign-compare \
 			-DLODEPNG_NO_COMPILE_ANCILLARY_CHUNKS -DLODEPNG_NO_COMPILE_ENCODER
 ifdef DEBUG
 	CFLAGS += -g
